@@ -1,0 +1,23 @@
+
+section .data
+    msg db 'Hola, mundo!', 0
+
+section .text
+    global _start
+
+_start:
+    ; Cargar 4 en el registro EAX (syscall para sys_write)
+    mov eax, 4
+    ; Cargar el descriptor de archivo stdout (1) en EBX
+    mov ebx, 1
+    ; Cargar el puntero al mensaje en ECX
+    lea ecx, [msg]
+    ; Cargar la longitud del mensaje en EDX (incluyendo el byte nulo)
+    mov edx, 13
+    ; Realizar la llamada al sistema para escribir el mensaje en la consola
+    int 0x80
+
+    ; Código de salida
+    mov eax, 1       ; syscall para sys_exit
+    xor ebx, ebx     ; código de salida 0
+    int 0x80         ; Realizar la llamada al sistema

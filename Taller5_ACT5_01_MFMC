@@ -1,0 +1,20 @@
+;Llamada a una función externa de C desde ensamblador x86
+;Ensamblador (llamado main.asm):
+
+Lenguaje assembly
+section .data
+    mensaje db "Hola desde ensamblador!", 0
+
+
+section .text
+    extern funcion_c  ; Declaración de la función externa en C
+    
+global _start
+_start:
+    ; Llamada a la función externa en C
+    call funcion_c
+    
+    ; Salida del programa
+    mov eax, 1       ; Número de sistema para salir (syscall)
+    xor ebx, ebx     ; Código de retorno 0
+    int 0x80         ; Llamada al sistema para salir

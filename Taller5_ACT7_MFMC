@@ -1,0 +1,27 @@
+section .data
+    mensaje db "Ejemplo de uso de pila en ensamblador x86", 0
+
+
+section .text
+    global _start
+
+
+_start:
+    ; Push de datos en la pila
+    push ebp            ; Guarda el valor actual de EBP
+    mov ebp, esp        ; Establece EBP como un punto de referencia para acceder a los parámetros y variables locales
+    
+    ; Imprime el mensaje almacenado en la sección .data
+    mov eax, 4          ; Número de sistema para imprimir en pantalla (syscall)
+    mov ebx, 1          ; Descriptor de archivo (stdout)
+    mov ecx, mensaje    ; Dirección del mensaje
+    mov edx, 32         ; Longitud del mensaje
+    int 0x80            ; Llamada al sistema para imprimir en pantalla
+    
+    ; Pop de datos de la pila
+    pop ebp             ; Restaura el valor de EBP
+    
+    ; Salida del programa
+    mov eax, 1          ; Número de sistema para salir (syscall)
+    xor ebx, ebx        ; Código de retorno 0
+    int 0x80            ; Llamada al sistema para salir

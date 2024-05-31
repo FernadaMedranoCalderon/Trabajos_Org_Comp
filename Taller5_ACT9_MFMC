@@ -1,0 +1,23 @@
+#include <stdio.h>
+
+int main() {
+    int a = 5;
+    int b = 10;
+    int resultado;
+
+
+    // Código ensamblador para sumar a y b
+    asm(
+        "mov eax, %[a]\n"   // Mueve el valor de 'a' al registro eax
+        "add eax, %[b]\n"   // Suma 'b' al valor en eax
+        "mov %[resultado], eax\n" // Mueve el resultado de eax a 'resultado'
+        : [resultado] "=r" (resultado)  // Salida: 'resultado' se almacena en un registro
+        : [a] "r" (a), [b] "r" (b)      // Entradas: 'a' y 'b' se cargan en registros
+        : "eax"                         // Registro que se modifica (eax)
+    );
+
+
+    printf("La suma de %d y %d es %d\n", a, b, resultado);
+
+    return 0;
+}

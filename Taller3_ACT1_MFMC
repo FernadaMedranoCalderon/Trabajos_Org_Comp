@@ -1,0 +1,48 @@
+section.data
+
+msg_greater db "El número es mayor o igual a 10", 0xA ; Mensaje para cuando el número es mayor o igual a 10
+len_msg_greater equ $ - msg_greater ; Longitud del mensaje
+
+msg_lower db "El número es menor a 10", 0xA ; Mensaje para cuando el número es menor a 10
+len_msg_lower equ $ - msg_lower ; Longitud del mensaje
+
+section .bss
+
+number resd 1 ; Reserva espacio en la memoria para almacenar un entero sin inicializar
+
+section .text
+
+global start
+
+_start:
+
+mov dword [number], 1 ; Asigna el valor 1 a la ubicación de memoria "number"
+
+mov eax, dword [number] ; Carga el valor de "number" en el registro eax
+
+cmp eax, 10 ; Compara el valor de eax con 10
+
+jge greater_than_or_equal ; Si el valor es mayor o igual a 10, salta a la etiqueta "greater_than_or_equal"
+
+; Si el valor es menor a 10, imprime el mensaje "El número es menor a 10"
+mov eax, 4 ; Llamada al sistema para imprimir un mensaje
+mov ebx, 1 ; Descriptor de archivo para STDOUT
+mov ecx, msg_lower ; Dirección del mensaje
+mov edx, len_msg_lower ; Longitud del mensaje
+int 0x80 ; Llamada al sistema
+
+jmp end_if_else ; Salta al final del bloque if-else
+
+greater_than_or_equal:
+
+mov eax, 4 ; Llamada al sistema para imprimir un mensaje
+mov ebx, 1 ; Descriptor de archivo para STDOUT
+mov ecx, msg_greater ; Dirección del mensaje
+mov edx, len_msg_greater ; Longitud del mensaje
+int 0x80 ; Llamada al sistema
+
+end_if_else:
+
+mov eax, 1 ; Código de salida del programa
+xor ebx, ebx ; Limpiar ebx
+int 0x80 ; Llamada al sistema para salir del programa

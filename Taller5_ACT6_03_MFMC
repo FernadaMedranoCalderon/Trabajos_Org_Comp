@@ -1,0 +1,12 @@
+//Para compilar y ejecutar:
+//1.- Ensambla el código en ensamblador:
+arduino
+nasm -f elf32 -o funcion_asm.o funcion_asm.asm
+
+//2.- Compila el código C e incluye el objeto ensamblado:
+css
+gcc -m32 -o programa main.c funcion_asm.o
+
+//3.- Ejecuta el programa:
+bash
+./programa

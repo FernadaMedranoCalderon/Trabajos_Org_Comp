@@ -1,0 +1,9 @@
+//C (llamado funcion.c):
+
+//Lenguaje c
+#include <stdio.h>
+
+void funcion_c()
+ {
+    printf("Hola desde C!\n");
+}

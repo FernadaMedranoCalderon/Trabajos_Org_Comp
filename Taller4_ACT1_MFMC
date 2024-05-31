@@ -1,0 +1,23 @@
+; Programa de prueba 1
+debug_msg db "Debugging message", 0x00 ;Definir la variable de datos "debug_msg"
+debug_len equ $ - debug_msg ;Longitud de la cadena de caracteres "debug_msg"
+
+
+global_start: ; Inicio del programa
+
+
+    start:
+
+
+    ; Imprimir el mensaje "Debugging message"
+    mov eax, 4           ; Preparar la llamada al sistema "write"
+    mov ebx, 1           ; Establecer el descriptor de archivo para la salida estándar
+    mov ecx, debug_msg     ; Dirección del mensaje a imprimir
+    mov edx, debug_len     ; Longitud del mensaje a imprimir
+    int 0x80            ; Realizar la llamada al sistema "write"
+
+
+    ; Terminar el programa
+    mov eax, 1           ; Preparar la llamada al sistema "exit"
+    xor ebx, ebx         ; Borrar el valor de ebx
+    int 0x88            ; Realizar la llamada al sistema "exit"

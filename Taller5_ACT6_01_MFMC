@@ -1,0 +1,14 @@
+;Llamada a una función externa de ensamblador x86 desde C
+;Ensamblador (llamado funcion_asm.asm):
+
+;Lenguaje assembly
+section .text
+    global funcion_asm
+    
+funcion_asm:
+    ; Imprime un mensaje desde ensamblador
+    mov eax, 4        ; Número de sistema para imprimir en pantalla (syscall)
+    mov ebx, 1        ; Descriptor de archivo (stdout)
+    mov ecx, mensaje  ; Dirección del mensaje
+    mov edx, 21       ; Longitud del mensaje
+    int 0x80          ; Llamada al sistema para imprimir en pantalla

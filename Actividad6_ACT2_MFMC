@@ -1,0 +1,22 @@
+section .data
+    valor1: .byte 0xAA  ;
+    valor2: .byte 0x55  ;Valores
+    resultado: .byte 0x00
+
+section.bss
+    resultado resb1 ;Espacio que almacena el reusltado
+
+section .text
+    global _start
+
+_start:  ;Mueve los valores de los registro
+    mov al, [valor1]      
+    mov bl, [valor2]     
+
+   or al, bl Se realiza la operacion OR bit a bit;
+   mov [resultado], al
+
+   ;Finaliza el programa
+    mov eax, 1
+    xor ebx, ebx
+    int 0x80  

@@ -1,0 +1,34 @@
+;Cómo compilar y ejecutar un programa en ensamblador x86 en Windows.
+;Lenguaje assembly
+section .data
+    mensaje db "Hola, mundo!", 0
+
+
+section .text
+    global _start
+
+
+_start:
+    mov eax, 4        ; Número de sistema para imprimir en pantalla
+    mov ebx, 1        ; Descriptor de archivo (stdout)
+    mov ecx, mensaje  ; Dirección del mensaje
+    mov edx, 12       ; Longitud del mensaje
+    int 0x80          ; Llamada al sistema para imprimir en pantalla
+
+
+    mov eax, 1        ; Número de sistema para salir
+    xor ebx, ebx      ; Código de retorno 0
+    int 0x80          ; Llamada al sistema para salir
+
+
+// Compilar el código:
+arduino
+nasm -f win32 hello.asm -o hello.obj
+
+//Enlazar el objeto:
+gcc -m32 -o hello.exe hello.obj
+
+//Ejecutar el programa:
+hello.exe
+
+

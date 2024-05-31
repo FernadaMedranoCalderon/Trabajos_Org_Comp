@@ -1,0 +1,17 @@
+;DIRECCIONAMIENTO INMEDIATO:
+section .data
+    numero1 dd 5
+    numero2 dd 7
+    resultado dd 0
+    
+section .text
+    global _start
+    
+_start:
+    mov eax, 5 ; Valor inmediato para numero1
+    add eax, 7 ; Valor inmediato para numero2
+    mov [resultado], eax
+    
+    mov eax, 1 
+    xor ebx, ebx
+    int 0x80

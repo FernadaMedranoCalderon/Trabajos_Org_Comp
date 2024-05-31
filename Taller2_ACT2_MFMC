@@ -1,0 +1,17 @@
+;DIRECCIONAMIENTO DIRECTO:
+section .data
+    numero1 dd 5
+    numero2 dd 7
+    resultado dd 0
+    
+section .text
+    global _start
+    
+_start:
+    mov eax, dword numero1 ; Acceso directo a numero1
+    add eax, dword numero2 ; Acceso directo a numero2
+    mov dword resultado, eax ; Acceso directo a resultado   
+ 
+    mov eax, 1 
+    xor ebx, ebx
+    int 0x80

@@ -1,0 +1,25 @@
+//Para compilar y ejecutar:
+
+//1.-Compila el código C en una biblioteca compartida:
+
+r
+gcc -c -o funcion.o funcion.c
+gcc -shared -o funcion.so funcion.o
+
+//2.-Ensambla el código en ensamblador:
+css
+nasm -f elf32 -o main.o main.asm
+
+//Enlaza ambos códigos:
+css
+gcc -m32 -o programa main.o funcion.so
+
+//Ejecuta el programa:
+//3.- Enlaza ambos códigos:
+css
+gcc -m32 -o programa main.o funcion.so
+
+//4.-Ejecuta el programa:
+bash
+./programa
+

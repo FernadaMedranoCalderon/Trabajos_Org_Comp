@@ -1,0 +1,11 @@
+;thiscall:
+global _thiscall_func
+
+section .text
+_thiscall_func:
+    mov eax, [esp+4]  ; Primer argumento en la pila
+    mov ebx, [esp+8]  ; Segundo argumento en la pila
+    
+    ; Código de la función que usa ECX como 'this'
+    
+    ret 8  ; Limpiar la pila y volver

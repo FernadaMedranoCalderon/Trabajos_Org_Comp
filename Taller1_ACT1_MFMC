@@ -1,3 +1,4 @@
+;DIRECCIONAMIENTO INMEDIATO:
 section .data ;Este programa muestra el mensaje hola mundo
     mensaje db 'Hola Mundo Hola mundo', 0
 

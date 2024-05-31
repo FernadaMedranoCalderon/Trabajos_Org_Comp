@@ -1,0 +1,79 @@
+;Código de prueba 2 (Corregido)
+section .data
+msg db "Ingresa dos numeros de un digito: ", 0
+len equ $ - msg
+result db "El resultado es: ", 0
+len_result equ $ - result
+
+
+section .bss
+num1 resb 2
+num2 resb 2
+res resb 1
+
+
+section .text
+global _start
+_start:
+
+
+; Imprimir mensaje de solicitud
+mov eax, 4 ; syscall número (write)
+mov ebx, 1 ; file descriptor (stdout)
+mov ecx, msg ; puntero al mensaje
+mov edx, len ; longitud del mensaje
+int 0x80
+
+
+; Leer primer número (2 bytes)
+mov eax, 3 ; syscall número (read)
+mov ebx, 0 ; file descriptor (stdin)
+mov ecx, num1 ; puntero al espacio reservado para el primer número
+mov edx, 2 ; número de bytes a leer (2 para 2 dígitos)
+int 0x80
+
+
+; Leer segundo número (2 bytes)
+mov eax, 3 ; syscall número (read)
+mov ebx, 0 ; file descriptor (stdin)
+mov ecx, num2 ; puntero al espacio reservado para el segundo número
+mov edx, 2 ; número de bytes a leer (2 para 2 dígitos)
+int 0x80
+
+
+; Procesar la entrada (suponiendo que solo el primer dígito es válido)
+mov al, [num1] ; Cargar el primer byte (primer dígito) de num1 en AL
+sub al, '0' ; Convertir el código ASCII del dígito a valor numérico
+
+
+mov bl, [num2] ; Cargar el primer byte (primer dígito) de num2 en BL
+sub bl, '0' ; Convertir el código ASCII del dígito a valor numérico
+
+
+add al, bl ; Sumar los valores numéricos
+add al, '0' ; Convertir la suma de nuevo al código ASCII de un dígito
+
+
+mov [res], al ; Almacenar el resultado (solo el primer dígito)
+
+
+; Imprimir mensaje antes del resultado
+mov eax, 4 ; syscall número (write)
+mov ebx, 1 ; file descriptor (stdout)
+mov ecx, result ; puntero al mensaje
+mov edx, len_result ; longitud del mensaje
+int 0x80
+
+
+; Imprimir el resultado (solo el primer dígito)
+mov eax, 4 ; syscall número (write)
+mov ebx, 1 ; file descriptor (stdout)
+mov ecx, res ; puntero al resultado
+mov edx, 1 ; número de bytes a imprimir (1 para un solo dígito)
+int 0x80
+
+
+; Terminar programa
+mov eax, 1 ; syscall número (exit)
+xor ebx, ebx ; código de salida (0)
+int 0x80

@@ -1,0 +1,12 @@
+//C (llamado main.c):
+//Lenguaje c
+#include <stdio.h>
+
+extern void funcion_asm();
+
+int main() {
+    printf("Llamando a la función externa desde C...\n");
+    funcion_asm();
+    printf("Regresando a C...\n");
+    return 0;
+}

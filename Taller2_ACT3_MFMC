@@ -1,0 +1,18 @@
+;DIRECCIONAMIENTO REGISTRO INDIRECTO:
+section .data
+    numero1 dd 5
+    numero2 dd 7
+    resultado dd 0
+    
+section .text
+    global _start
+    
+_start:
+    mov eax, [numero1]
+    add eax, [numero2]
+    mov ebx, resultado ; Registro indirecto para almacenar resultado
+    mov [ebx], eax
+    
+    mov eax, 1 
+    xor ebx, ebx
+    int 0x80

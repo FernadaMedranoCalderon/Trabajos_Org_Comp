@@ -1,0 +1,63 @@
+section.data
+
+msg_lower db "El número es menor a 10", 0xA ; Mensaje para cuando el número es menor a 10
+len_msg_lower equ $ - msg_lower ; Longitud del mensaje
+
+msg_greater db "El número es mayor o igual a 10", 0xA ; Mensaje para cuando el número es mayor o igual a 10
+len_msg_greater equ $ - msg_greater ; Longitud del mensaje
+
+msg_equal db "El número es igual a 10", 0xA ; Mensaje para cuando el número es igual a 10
+len_msg_equal equ $ - msg_equal ; Longitud del mensaje
+
+msg_not_valid db "El valor ingresado no es válido", 0xA ; Mensaje para cuando el valor no es válido
+len_msg_not_valid equ $ - msg_not_valid ; Longitud del mensaje
+
+section .bss
+
+number resd 1 ; Reserva espacio en la memoria para almacenar un entero sin inicializar
+
+%macro imprimir_mensaje 2 ; Macro para imprimir un mensaje
+    mov eax, 4 ; Llamada al sistema para imprimir un mensaje
+    mov ebx, 1 ; Descriptor de archivo para STDOUT
+    mov ecx, %1 ; Dirección del mensaje
+    mov edx, %2 ; Longitud del mensaje
+    int 0x80 ; Llamada al sistema
+%endmacro
+
+section.text
+
+global start
+
+start:
+
+mov dword [number], 1 ; Asigna el valor 1 a la ubicación de memoria "number"
+
+mov eax, dword [number] ; Carga el valor de "number" en el registro eax
+
+cmp eax, 10 ; Compara el valor de eax con 10
+
+jge greater_than_or_equal ; Si el valor es mayor o igual a 10, salta a la etiqueta "greater_than_or_equal"
+
+; Si el valor es menor a 10, imprime el mensaje "El número es menor a 10"
+imprimir_mensaje msg_lower, len_msg_lower
+jmp end_if_else ; Salta al final del bloque if-else
+
+greater_than_or_equal:
+
+cmp eax, 10 ; Compara nuevamente con 10 para determinar si es mayor o igual
+je equal ; Si es igual a 10, salta a la etiqueta "equal"
+
+; Si el valor es mayor a 10, imprime el mensaje "El número es mayor o igual a 10"
+imprimir_mensaje msg_greater, len_msg_greater
+jmp end_if_else ; Salta al final del bloque if-else
+
+equal:
+
+; Si el valor es igual a 10, imprime el mensaje "El número es igual a 10"
+imprimir_mensaje msg_equal, len_msg_equal
+
+end_if_else:
+
+mov eax, 1 ; Código de salida del programa
+xor ebx, ebx ; Limpiar ebx
+int 0x80 ; Llamada al sistema para salir del programa

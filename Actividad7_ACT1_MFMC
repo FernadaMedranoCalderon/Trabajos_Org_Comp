@@ -1,0 +1,31 @@
+%macro print_int 1  ; Define un macro llamado "print_int" que toma un argumento
+    mov eax, 4      ; Carga el número de la llamada al sistema "sys_write" en eax
+    mov ebx, 1      ; Carga el descriptor de archivo (stdout) en ebx
+    mov ecx, %1     ; Carga el valor del primer argumento en ecx (se espera que sea un entero)
+    mov edx, 4      ; Carga la longitud de bytes a escribir (4 bytes para un entero) en edx
+    int 0x80        ; Realiza la llamada al sistema
+%endmacro
+
+section .data
+    array dd 1, 2, 3, 4, 5  ; Declaración de un array de enteros inicializados
+
+section .text
+    global _start
+
+_start:
+    mov ecx, 0            ; Inicializa el contador del bucle en 0
+    mov eax, 0            ; Inicializa la suma en 0
+
+bucle:
+    mov ebx, [array + ecx*4]  ; Carga el elemento actual del array en ebx
+    add eax, ebx               ; Suma el valor del elemento al total
+
+    inc ecx                    ; Incrementa el contador del bucle
+    cmp ecx, 5                 ; Compara el contador con el tamaño del array (5)
+    jl bucle                   ; Salta de nuevo al bucle si ecx es menor que 5
+
+    print_int eax              ; Llama al macro "print_int" para imprimir la suma
+
+    mov eax, 1                 ; Carga el número de la llamada al sistema "sys_exit" en eax
+    xor ebx, ebx               ; Establece el código de salida en 0 (éxito)
+    int 0x80                   ; Realiza la llamada al sistema

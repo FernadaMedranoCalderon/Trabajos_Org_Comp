@@ -1,0 +1,24 @@
+;DIRECCIONAMIENTO RELATIVO A REGISTRO:
+section .data
+    numero1 dd 5
+    numero2 dd 7
+    resultado dd 0
+    
+section .text
+    global _start
+    
+_start:
+    ; Modo de registro
+    mov eax, [numero1] ; Acceso a numero1 a través de registro
+    add eax, [numero2] ; Acceso a numero2 a través de registro
+    mov [resultado], eax ; Acceso a resultado a través de registro
+    
+    mov ebx, resultado ; Registro base
+    mov eax, [ebx] ; Acceso a resultado utilizando modo relativo a registro
+    add eax, [ebx + numero1] ; Acceso a numero1 utilizando modo relativo a registro
+    add eax, [ebx + numero2] ; Acceso a numero2 utilizando modo relativo a registro
+    mov [ebx], eax ; Guardar el resultado nuevamente utilizando modo relativo a registro
+    
+    mov eax, 1 
+    xor ebx, ebx
+    int 0x80

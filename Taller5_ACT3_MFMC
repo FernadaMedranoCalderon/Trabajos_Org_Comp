@@ -1,0 +1,32 @@
+section .data
+    buffer db 0      ; Buffer para almacenar el byte leído
+
+section .text
+    global _start
+
+_start:
+    ; Bucle para leer la entrada del teclado y manejarla
+read_loop:
+    ; Leer un byte del puerto 0x60 y almacenarlo en el buffer
+    in al, 0x60      
+    mov [buffer], al
+
+    ; Comprobar si el valor leído es la tecla de escape (0x1)
+    cmp al, 0x1
+    je exit_program  ; Salir del programa si se presiona la tecla de escape
+
+    ; Imprimir el valor leído en la consola
+    ; Llamada al sistema para imprimir un carácter
+    mov eax, 4       ; syscall para sys_write
+    mov ebx, 1       ; descriptor de archivo stdout
+    mov ecx, buffer  ; dirección del buffer que contiene el valor leído
+    mov edx, 1       ; longitud del buffer (1 byte)
+    int 0x80         ; Realizar la llamada al sistema
+
+    ; Volver al inicio del bucle para leer más entrada del teclado
+    jmp read_loop
+
+    ; Salir limpiamente del programa
+    mov eax, 1       ; syscall para sys_exit
+    xor ebx, ebx     ; código de salida 0
+    int 0x80         ; Realizar la llamada al sistema

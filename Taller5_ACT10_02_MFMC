@@ -1,0 +1,12 @@
+;stdcall:
+global _stdcall_func
+
+section .text
+_stdcall_func:
+    ; Los argumentos ya están en la pila, así que podemos acceder directamente
+    mov eax, [esp+4]  ; Primer argumento
+    mov ebx, [esp+8]  ; Segundo argumento
+    
+    ; Código de la función
+    
+    ret 8  ; Limpiar la pila y volver

@@ -1,0 +1,8 @@
+;vectorcall:
+global _vectorcall_func
+
+section .text
+_vectorcall_func:
+    ; Implementación específica de vectorcall
+    
+    ret

@@ -1,0 +1,17 @@
+section .data
+    num dw 1234      ; Palabra de 16 bits (2 bytes)
+
+section .text
+    global _start
+
+_start:
+    mov ax, [num]    ; Cargar el valor almacenado en 'num' en el registro AX
+
+    ; Agregar otras operaciones aquí, por ejemplo:
+    add ax, 10       ; Sumar 10 al valor en AX
+    ; Otras operaciones...
+
+    ; Finalizar el programa
+    mov eax, 1       ; syscall para sys_exit
+    xor ebx, ebx     ; código de salida 0
+    int 0x80         ; Realizar la llamada al sistema

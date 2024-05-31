@@ -1,5 +1,5 @@
 section .data ;Este programa muestra el mensaje hola mundo
-    mensaje db 'Hola Mundo', 0
+    mensaje db 'Hola Mundo Hola mundo', 0
 
 section .text
     global _start
@@ -9,7 +9,7 @@ _start:
     mov eax, 4
     mov ebx, 1
     mov ecx, mensaje
-    mov edx, 11
+    mov edx, 22 ;Se cambia el numero para que la cadena se pueda duplicar
     int 0x80
 
     mov eax, 1

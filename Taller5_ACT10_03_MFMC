@@ -1,0 +1,13 @@
+;fastcall:
+Lenguaje assembly
+global _fastcall_func
+
+
+section .text
+_fastcall_func:
+    mov eax, ecx  ; Primer argumento en registro
+    mov ebx, edx  ; Segundo argumento en registro
+    
+    ; Código de la función
+    
+    ret

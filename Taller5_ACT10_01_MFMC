@@ -1,0 +1,16 @@
+;cdecl (C Declaration):
+global _cdecl_func
+
+section .text
+_cdecl_func:
+    push ebp
+    mov ebp, esp
+    
+    ; Acceder a los argumentos
+    mov eax, [ebp+8]  ; Primer argumento
+    mov ebx, [ebp+12] ; Segundo argumento
+    
+    ; Código de la función
+    
+    pop ebp
+    ret

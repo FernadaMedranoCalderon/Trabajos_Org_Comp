@@ -1,0 +1,20 @@
+section .data
+    msg db 'Hola, mundo!', 0
+
+section .text
+    global _start
+
+_start:
+    ; Realizar la llamada al sistema para imprimir el mensaje
+    mov eax, 4          ; Identificador de la llamada al sistema para imprimir
+    mov ebx, 1          ; Descriptor de archivo (stdout)
+    mov ecx, msg        ; Dirección del mensaje
+    mov edx, 13         ; Longitud del mensaje
+    int 0x80            ; Interrupción 0x80 para realizar la llamada al sistema
+
+    ; Agregar otras operaciones aquí, si es necesario...
+
+    ; Salir limpiamente del programa
+    mov eax, 1          ; Identificador de la llamada al sistema para salir
+    xor ebx, ebx        ; Código de salida 0
+    int 0x80            ; Realizar la llamada al sistema
